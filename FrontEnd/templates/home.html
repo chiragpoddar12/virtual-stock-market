@@ -30,47 +30,45 @@
             <div class="row">
                 <div class="col-xs-6">
                     <h3> Grossing Stocks </h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Stock</th>
-                                <th>Price(euro)</th>
-                                <th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ABC</td>
-                                <td>25</td>
-                            </tr>
-                            <tr>
-                                <td>XYZ</td>
-                                <td>50</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="allStocksTable">
+                        <table class="table" id="stockTable">
+                            <thead>
+                                <th>Stock Name</th>
+                                <th>Price</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>abc
+                                    <td>abc
+                                </tr>
+                                <tr>
+                                    <td>xya
+                                    <td>xya
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col-xs-6">
                     <h3> Leader Board </h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
+                    <div id="allPlayersTable">
+                        <table class="table" id="playerTable">
+                            <thead>
                                 <th>Name</th>
-                                <th>Amount(euro)</th>
-                                <th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ABC</td>
-                                <td>25</td>
-                            </tr>
-                            <tr>
-                                <td>XYZ</td>
-                                <td>50</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                <th>Amount</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>abc
+                                    <td>abc
+                                </tr>
+                                <tr>
+                                    <td>xya
+                                    <td>xya
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <p><a class="btn btn-primary btn-lg" href="#" role="button">Show All</a></p>
@@ -82,5 +80,7 @@
     <!-- <script src="js/bootstrap.min.js"></script> -->
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type=text/javascript src="{{
+  url_for('static', filename='js/home.js') }}"></script>
   </body>
 </html>
