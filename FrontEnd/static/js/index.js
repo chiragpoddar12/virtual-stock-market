@@ -1,7 +1,7 @@
 function getAllStocks(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:9000/allStocks",
+        url: "http://193.1.166.84:9001/stockprice",
         async: false,
         success: successAllStocks,
         error: errorAllStocks
@@ -22,6 +22,7 @@ function getAllPlayers(){
 
 function successAllStocks(response){
     console.log("success Stocks");
+    console.log(response);
     // $('#here').html(response.age);
     var table = "<table class='table' id='stockTable'>"+
                     "<thead>"+

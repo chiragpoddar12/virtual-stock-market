@@ -42,7 +42,7 @@ function successAllStocks(response){
                     "</tbody>"+
                 "</table>";
     $('#allStocksTable').html(table)
-    setTimeout(function(){getAllStocks();}, 1000);
+    setTimeout(function(){getAllStocks();}, 10000);
 }
 
 function errorAllStocks(response){
@@ -71,7 +71,7 @@ function successAllPlayers(response){
                     "</tbody>"+
                 "</table>";
     $('#allPlayersTable').html(table);
-    setTimeout(function(){getAllPlayers();}, 1000);
+    setTimeout(function(){getAllPlayers();}, 10000);
 }
 
 function errorAllPlayers(response){
