@@ -1,28 +1,55 @@
 from flask import Flask, render_template, url_for, redirect, request, flash, session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+# from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine, asc, desc
+from sqlalchemy.orm import sessionmaker
+from database_setup import User, Base
+
 from httplib2 import Http
 import os
 import json
 h = Http()
 app = Flask(__name__)
-user = 'abc'
+# Connect to Database and create database session
+engine = create_engine('sqlite:///vsmUser.db')
+Base.metadata.bind = engine
+
+DBSession = sessionmaker(bind=engine)
+dbSession = DBSession()
+
 @app.route("/")
 @app.route("/index", methods = ['GET', 'POST'])
 def index():
     if request.method == 'POST':
 
-        session.pop('user', None)
+        # session.pop('user', None)
         # User validation and registration
-        user = request.form['email'].split('@')[0]
-        if request.form['password'] == "password":
+        if request.form['submit'] == 'login':
+            # Login Action
+            user = request.form['email'].split('@')[0]
+            dbUser = dbSession.query(User).filter_by(username=user).one()
+            if request.form['password'] == dbUser.password:
+                session['user'] = user
+                return redirect(url_for('home'))
+        elif request.form['submit'] == 'register':
+            # Register action
+            # add user to DB
+            user = request.form['email'].split('@')[0]
+            email = request.form['email']
+            password = request.form['password']
+            firstName = request.form['firstName']
+            lastName = request.form['lastName']
+            fullName = firstName + " " + lastName
+            newUser = User(username=user, fullName=fullName, email=email, password=password)
+            dbSession.add(newUser)
+            dbSession.commit()
+            #Start Session
             session['user'] = user
-            # loginSuccessful = True
-        # if(loginSuccessful):
-            return redirect(url_for('home', user=user))
+            return redirect(url_for('home'))
     else:
-        # session.pop('user',None)
-        if session.get('user') != None:
-            return redirect(url_for('home', user=session.get('user')))
+        session.pop('user',None)
+        # if session.get('user') != None:
+        #     return redirect(url_for('home', user=session.get('user')))
         return render_template('index.html')
 
 @app.route("/home", methods = ['GET', 'POST'])
