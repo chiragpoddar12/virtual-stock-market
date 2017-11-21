@@ -1,7 +1,7 @@
 function getAllStocks(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:9000/allStocks",
+        url: "http://localhost:8093/stockUpdates",
         async: false,
         success: successAllStocks,
         error: errorAllStocks
@@ -42,7 +42,7 @@ function successAllStocks(response){
                     "</tbody>"+
                 "</table>";
     $('#allStocksTable').html(table)
-    setTimeout(function(){getAllStocks();}, 10000);
+    setTimeout(function(){console.log("HERE");getAllStocks();}, 10000);
 }
 
 function errorAllStocks(response){
@@ -52,6 +52,7 @@ function errorAllStocks(response){
 
 function successAllPlayers(response){
     console.log("success Players");
+    print response
     var table = "<table class='table' id='playerTable'>"+
                     "<thead>"+
                         "<tr>"+

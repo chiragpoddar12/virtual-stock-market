@@ -27,6 +27,7 @@ def index():
         if request.form['submit'] == 'login':
             # Login Action
             user = request.form['email'].split('@')[0]
+            print user
             dbUser = dbSession.query(User).filter_by(username=user).one()
             if request.form['password'] == dbUser.password:
                 session['user'] = user
