@@ -4,6 +4,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
 from database_setup import User, Base
+from urllib import urlencode
 
 from httplib2 import Http
 import os
@@ -57,8 +58,14 @@ def index():
 # @login_required
 def home():
     if request.method == 'POST':
-        resp, content = h.request("http://localhost:9000/loginError", 'GET');
-        return content
+        data = dict(user=session.get('user'),
+                    stockName=request.form['stockName'],
+                    stockPrice = request.form['stockPrice'],
+                    stockQuantity = request.form['stockQuantity'],
+                    action = request.form['submit'])
+        resp, content = h.request("http://localhost:27016/Broker", "POST", urlencode(data));
+
+        return redirect(url_for('home'))
     else:
         user = session.get('user')
         if user != None:

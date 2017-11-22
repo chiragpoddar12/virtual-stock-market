@@ -31,16 +31,14 @@ function successAllStocks(response){
                             "<th>Age</th>"+
                         "</tr>"+
                     "</thead>"+
-                    "<tbody>"+
-                        "<tr>"+
-                            "<td>"+response.name+
-                            "<td>"+response.age+
-                        "</tr>"+
-                        "<tr>"+
-                            "<td>xya"+
-                            "<td>xya"+
-                        "</tr>"+
-                    "</tbody>"+
+                    "<tbody>";
+                    for(oneResponse in response){
+                        table = table + "<tr>"+
+                                    "<td>"+oneResponse[stockName]+
+                                    "<td>"+oneResponse[stockPrice]+
+                                "</tr>";
+                    }
+                table=table+"</tbody>"+
                 "</table>";
     $('#allStocksTable').html(table)
     setTimeout(function(){getAllStocks();}, 1000);

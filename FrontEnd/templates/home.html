@@ -65,7 +65,7 @@
                         <table class="table" id="playerTable">
                             <thead>
                                 <th>Name</th>
-                                <th>Amount</th>
+                                <th>Balance</th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -81,7 +81,54 @@
                     </div>
                 </div>
             </div>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Show All</a></p>
+            <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Show All</a></p> -->
+        </div>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-xs-5">
+                    <h2>Your Shares</h2>
+                    <div id="myStocksTable">
+                        <table class="table" id="myStockTable">
+                            <thead>
+                                <th>Stock Name</th>
+                                <th>Price</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>abc
+                                    <td>abc
+                                </tr>
+                                <tr>
+                                    <td>xya
+                                    <td>xya
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-5">
+                    <h2>Buy or Sell Shares</h2>
+                    <form method="POST" action="http://localhost:27015/home">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="stockName" id="stockName" placeholder="Stock Name">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input type="number" name = "stockQuantity" class="form-control" id="stockQuantity" placeholder="Stock Quantity">
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="number" name = "stockPrice" class="form-control" id="stockPrice" placeholder="Stock Price">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" name = "submit" value="sell" class="btn btn-default">Sell</button>
+                        <button type="submit" name = "submit" value="buy" class="btn btn-default">Buy</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
