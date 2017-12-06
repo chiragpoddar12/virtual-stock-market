@@ -9,6 +9,7 @@ from urllib import urlencode
 from httplib2 import Http
 import os
 import json
+import requests
 h = Http()
 app = Flask(__name__)
 # Connect to Database and create database session
@@ -58,21 +59,38 @@ def index():
 # @login_required
 def home():
     if request.method == 'POST':
-        data = dict(user=session.get('user'),
-                    stockName=request.form['stockName'],
-                    stockPrice = request.form['stockPrice'],
-                    stockQuantity = request.form['stockQuantity'],
-                    action = request.form['submit'])
-        resp, content = h.request("http://localhost:27016/Broker", "POST", urlencode(data));
+        if request.form['submit'] == "sell":
+            data = dict(sellerName="dar", #session.get('user'),
+                    companyName=request.form['stockName'],
+                    stockPrice = float(request.form['stockPrice']),
+                    numberOfShares = int(request.form['stockQuantity']))
+            headers = {'Content-Type':'application/json'}
+            resp = requests.post("http://localhost:8900/sellerStock", json=data, headers=headers)
+        else:
+            data = dict(buyerName="shan", #session.get('user'),
+                    companyName=request.form['stockName'],
+                    stockPrice = float(request.form['stockPrice']),
+                    numberOfShares = int(request.form['stockQuantity']))
+            headers = {'Content-Type':'application/json'}
+            resp = requests.post("http://localhost:8900/buyerStock", json=data, headers=headers)
 
         return redirect(url_for('home'))
     else:
         user = session.get('user')
         if user != None:
-            resp, content = h.request("http://localhost:8091/Bank?id=1", 'GET');
-            clientJson = json.loads(content)
+            resp, content = h.request("http://localhost:8091/Bank?id=dar", 'GET');
+            clientJsonArray = json.loads(content)
+            clientJson = json.loads(clientJsonArray[0])
             balance = clientJson['Balance']
-            return render_template("home.html", user=user, balance=balance)
+            shareDetails = {}
+            shareDetailsArray = []
+            for clientInfo in clientJsonArray:
+                shareDetails["shareName"] = json.loads(clientInfo)["ShareName"]
+                shareDetails["shareQty"] = json.loads(clientInfo)["ShareQty"]
+                # print shareDetails
+                shareDetailsArray.append(shareDetails.copy())
+            # print shareDetailsArray
+            return render_template("home.html", user=user, balance=balance, shareDetails=shareDetailsArray)
         else:
             return redirect(url_for('index'));
 
