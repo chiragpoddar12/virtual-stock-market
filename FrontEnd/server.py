@@ -60,14 +60,14 @@ def index():
 def home():
     if request.method == 'POST':
         if request.form['submit'] == "sell":
-            data = dict(sellerName="dar", #session.get('user'),
+            data = dict(sellerName=session.get('user'),
                     companyName=request.form['stockName'],
                     stockPrice = float(request.form['stockPrice']),
                     numberOfShares = int(request.form['stockQuantity']))
             headers = {'Content-Type':'application/json'}
             resp = requests.post("http://localhost:8900/sellerStock", json=data, headers=headers)
         else:
-            data = dict(buyerName="shan", #session.get('user'),
+            data = dict(buyerName=session.get('user'),
                     companyName=request.form['stockName'],
                     stockPrice = float(request.form['stockPrice']),
                     numberOfShares = int(request.form['stockQuantity']))
@@ -78,7 +78,7 @@ def home():
     else:
         user = session.get('user')
         if user != None:
-            resp, content = h.request("http://localhost:8091/Bank?id=dar", 'GET');
+            resp, content = h.request("http://localhost:8091/Bank?id="+user, 'GET');
             clientJsonArray = json.loads(content)
             clientJson = json.loads(clientJsonArray[0])
             balance = clientJson['Balance']

@@ -33,13 +33,13 @@ function successAllStocks(response){
                 table=table+"</tbody>"+
                 "</table>";
     $('#allStocksTable').html(table)
-    setTimeout(function(){getAllStocks();}, 100);
+    setTimeout(function(){getAllStocks();}, 10000);
 }
 
 function errorAllStocks(response){
 
     console.log("Error Stocks");
-    setTimeout(function(){getAllStocks();}, 100);
+    setTimeout(function(){getAllStocks();}, 10000);
 }
 
 
